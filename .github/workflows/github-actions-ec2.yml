@@ -1,11 +1,11 @@
-name: CI/CD counter app
+name: Push-to-EC2
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-#First we will see the application build or not , then we will deploy in EC2
   build:
     runs-on: ubuntu-latest
     
@@ -18,7 +18,7 @@ jobs:
     - name: Buid the application
       run: docker-compose exec -T counter_app npm run build
 
-  Deploy:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     

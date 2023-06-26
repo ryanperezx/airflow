@@ -7,25 +7,20 @@ on:
 
 jobs:
   deploy:
+    name: Push to EC2 Instance
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout the code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: Deploy in EC2
+        uses: easingthemes/ssh-deploy@v4.1.8
         env:
             PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
-            HOSTNAME : ${{ secrets.HOST_NAME  }}
-            USER_NAME : ${{ secrets.USER_NAME  }}
-            TARGET_DIR : ${{ secrets.TARGET_DIR  }}
-            
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -tt -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-          
-          cd ${TARGET_DIR} &&
-          git checkout main &&
-          git fetch --all &&
-          git reset --hard origin/main &&
-          git pull origin main
+            SOURCE: "./"
+            REMOTE_HOST : ${{ secrets.HOST_NAME  }}
+            REMOTE_USER : ${{ secrets.USER_NAME  }}
+            TARGET : ${{ secrets.TARGET_DIR  }}

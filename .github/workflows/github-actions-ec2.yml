@@ -24,7 +24,6 @@ jobs:
             REMOTE_USER : ${{ secrets.USER_NAME }}
             TARGET : ${{ secrets.TARGET_DIR }}
             SCRIPT_AFTER: |
-              cd $TARGET
               source ~/miniconda3/etc/profile.d/conda.sh
               conda activate airflow
-              pip install -r requirements.txt
+              pip install -r $TARGET/requirements.txt

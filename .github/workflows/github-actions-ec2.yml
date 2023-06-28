@@ -23,7 +23,9 @@ jobs:
             REMOTE_HOST : ${{ secrets.HOST_NAME }}
             REMOTE_USER : ${{ secrets.USER_NAME }}
             TARGET : ${{ secrets.TARGET_DIR }}
+            CONDA_LOCATION: ${{ secrets.CONDA_LOCATION }}
             SCRIPT_AFTER: |
               cd $TARGET
+              source $CONDA_LOCATION/etc/profile.d/conda.sh
               conda activate airflow
               pip install -r requirements.txt

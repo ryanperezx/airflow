@@ -26,4 +26,4 @@ jobs:
             SCRIPT_AFTER: |
               source ~/miniconda3/etc/profile.d/conda.sh
               conda activate airflow
-              pip install -r $TARGET/requirements.txt
+              pip install -r ~/airflow/requirements.txt
